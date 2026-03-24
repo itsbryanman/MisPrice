@@ -314,7 +314,7 @@ def run_pipeline(args: argparse.Namespace) -> dict[str, Any]:
         timings["total"] = round(total, 3)
         results["benchmark"] = timings
         logger.info("")
-        logger.info("  ⏱  BENCHMARK RESULTS")
+        logger.info("  BENCHMARK RESULTS")
         logger.info("  %s", "─" * 40)
         for stage, secs in timings.items():
             logger.info("    %-30s  %7.3fs", stage, secs)
@@ -336,7 +336,7 @@ def _print_summary(results: dict[str, Any]) -> None:
         logger.info("  %s", "─" * 40)
 
         if "error" in data:
-            logger.warning("    ⚠  Error: %s", data["error"])
+            logger.warning("    Error: %s", data["error"])
             continue
 
         logger.info("    Aligned rows:  %s", data.get("n_aligned_rows", "?"))

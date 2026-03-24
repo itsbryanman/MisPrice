@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📈 Misprice
+# Misprice
 
 ### Crowd vs. Model — Prediction Market Calibration & Mispricing Detection
 
@@ -17,13 +17,13 @@
 
 **Misprice** grades the accuracy of [Kalshi](https://kalshi.com) prediction markets against econometric models trained on [FRED](https://fred.stlouisfed.org/) macroeconomic indicators. It surfaces systematic biases, measures calibration quality, and identifies live contracts where the crowd and the model disagree — potential mispricing opportunities.
 
-[Getting Started](#-getting-started) · [Architecture](#-architecture) · [Usage](#-usage) · [API Reference](#-api-reference) · [Dashboard](#-dashboard) · [Docs](#-documentation)
+[Getting Started](#getting-started) · [Architecture](#architecture) · [Usage](#usage) · [API Reference](#api-reference) · [Dashboard](#dashboard) · [Docs](#documentation)
 
 </div>
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Description |
 |---------|-------------|
@@ -52,7 +52,7 @@
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -143,7 +143,7 @@ misprice/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -200,7 +200,7 @@ docker compose run --rm pipeline
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### 1. Validate Data Availability
 
@@ -214,9 +214,9 @@ python validate_data.py --fred-key $FRED_API_KEY
 
 | Result | Action |
 |--------|--------|
-| 2+ categories with 50+ resolved contracts | ✅ Full speed ahead |
-| 1 category with 50+ resolved contracts | ⚠️ Lead with strong category |
-| All categories < 20 contracts | 🔄 Pivot or wait for more market data |
+| 2+ categories with 50+ resolved contracts | Full speed ahead |
+| 1 category with 50+ resolved contracts | Lead with strong category |
+| All categories < 20 contracts | Pivot or wait for more market data |
 
 ### 2. Run the Full Pipeline
 
@@ -263,7 +263,7 @@ The API runs on `http://localhost:5000` by default.
 
 ---
 
-## 🔌 API Reference
+## API Reference
 
 ### Authentication
 
@@ -370,7 +370,7 @@ Returns calibration curves and Brier scores across all categories.
 
 ---
 
-## 📊 Dashboard
+## Dashboard
 
 The Streamlit dashboard provides four main views:
 
@@ -385,7 +385,7 @@ Each view supports **category filtering** (CPI, Fed Rate, Jobs) and displays **c
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 ### Data Pipeline
 
@@ -436,7 +436,7 @@ The `FeatureEngineer` enriches the aligned dataset before model training:
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -451,7 +451,7 @@ python -m pytest tests/ -v --cov=. --cov-report=term-missing
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 | Document | Description |
 |----------|-------------|
@@ -462,7 +462,7 @@ python -m pytest tests/ -v --cov=. --cov-report=term-missing
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please:
 
@@ -474,13 +474,13 @@ Contributions are welcome! Please:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Kalshi](https://kalshi.com) — Prediction market data
 - [FRED](https://fred.stlouisfed.org/) — Federal Reserve Economic Data
@@ -492,7 +492,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 <div align="center">
 
-**Built with ❤️ for the data-driven trading community**
+**Built with care for the data-driven trading community**
 
 [![GitHub](https://img.shields.io/badge/GitHub-itsbryanman-181717?logo=github)](https://github.com/itsbryanman)
 

@@ -222,10 +222,10 @@ function App() {
   }, [tab, category, fetchData]);
 
   const tabs = [
-    { id: 'divergences', label: '📊 Divergences' },
-    { id: 'calibration', label: '📈 Calibration' },
-    { id: 'backtest', label: '💰 Backtest' },
-    { id: 'health', label: '🏥 Health' },
+    { id: 'divergences', label: 'Divergences' },
+    { id: 'calibration', label: 'Calibration' },
+    { id: 'backtest', label: 'Backtest' },
+    { id: 'health', label: 'Health' },
   ];
 
   return (

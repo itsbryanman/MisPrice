@@ -49,7 +49,6 @@ DATA_DIR = _PROJECT_ROOT / "data"
 # ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="Crowd vs. Model",
-    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -155,7 +154,7 @@ def _generate_demo_data() -> dict[str, Any]:
                 "kalshi_price": kalshi_p,
                 "model_estimate": model_p,
                 "divergence": round(model_p - kalshi_p, 3),
-                "direction": "Underpriced 🟢" if model_p > kalshi_p else "Overpriced 🔴",
+                "direction": "Underpriced" if model_p > kalshi_p else "Overpriced",
             }
         )
     active_df = pd.DataFrame(active_rows).sort_values("divergence", key=abs, ascending=False).reset_index(drop=True)
@@ -330,7 +329,7 @@ def get_data() -> dict[str, Any]:
 
 def _page_whos_smarter(data: dict[str, Any]) -> None:
     """Page 1 – Who's Smarter?"""
-    st.title("🧠 Who's Smarter?")
+    st.title("Who's Smarter?")
 
     brier = data["brier_summary"]
     overall = brier["overall"]
@@ -363,7 +362,7 @@ def _page_whos_smarter(data: dict[str, Any]) -> None:
     table_rows = []
     for cat in CATEGORIES:
         b = brier[cat]
-        winner = "Model ✅" if b["model_brier"] < b["kalshi_brier"] else "Kalshi ✅"
+        winner = "Model" if b["model_brier"] < b["kalshi_brier"] else "Kalshi"
         table_rows.append(
             {
                 "Category": CATEGORY_LABELS[cat],
@@ -455,7 +454,7 @@ def _page_whos_smarter(data: dict[str, Any]) -> None:
 
 def _page_divergences_now(data: dict[str, Any]) -> None:
     """Page 2 – Where They Disagree Right Now."""
-    st.title("🔍 Where They Disagree Right Now")
+    st.title("Where They Disagree Right Now")
 
     active = data["active"]
     if isinstance(active, dict):
@@ -502,7 +501,7 @@ def _page_divergences_now(data: dict[str, Any]) -> None:
 
 def _page_evidence(data: dict[str, Any]) -> None:
     """Page 3 – The Evidence."""
-    st.title("📈 The Evidence")
+    st.title("The Evidence")
 
     hist = data["historical"]
     if isinstance(hist, dict):
@@ -511,7 +510,7 @@ def _page_evidence(data: dict[str, Any]) -> None:
     # Key stat
     model_right_pct = data.get("model_right_pct_at_15")
     if model_right_pct is not None and not (isinstance(model_right_pct, float) and math.isnan(model_right_pct)):
-        st.info(f"📌 When divergence > 15%, the **model was right {model_right_pct}%** of the time.")
+        st.info(f"When divergence > 15%, the **model was right {model_right_pct}%** of the time.")
 
     st.divider()
 
@@ -591,7 +590,7 @@ def _page_evidence(data: dict[str, Any]) -> None:
 
 def _page_methodology(data: dict[str, Any]) -> None:
     """Page 4 – Methodology."""
-    st.title("📘 Methodology")
+    st.title("Methodology")
 
     st.header("Data Sources")
     st.markdown(
@@ -654,7 +653,7 @@ def _page_methodology(data: dict[str, Any]) -> None:
     generated_at = data.get("generated_at", "unknown")
     is_demo = data.get("is_demo", False)
     st.caption(
-        f"{'⚠️ **Demo data** – results are synthetic. ' if is_demo else ''}"
+        f"{'**Demo data** – results are synthetic. ' if is_demo else ''}"
         f"Data generated at: `{generated_at}`"
     )
 
@@ -664,10 +663,10 @@ def _page_methodology(data: dict[str, Any]) -> None:
 # ═══════════════════════════════════════════════════════════════════════════
 
 PAGES: dict[str, tuple[str, Any]] = {
-    "Who's Smarter?": ("🧠", _page_whos_smarter),
-    "Where They Disagree Right Now": ("🔍", _page_divergences_now),
-    "The Evidence": ("📈", _page_evidence),
-    "Methodology": ("📘", _page_methodology),
+    "Who's Smarter?": ("", _page_whos_smarter),
+    "Where They Disagree Right Now": ("", _page_divergences_now),
+    "The Evidence": ("", _page_evidence),
+    "Methodology": ("", _page_methodology),
 }
 
 
@@ -678,7 +677,7 @@ def _check_auth() -> bool:
     if st.session_state.get("authenticated"):
         return True
 
-    st.title("🔒 Dashboard Login")
+    st.title("Dashboard Login")
     password = st.text_input("Password", type="password", key="login_password")
     if st.button("Login"):
         if password == STREAMLIT_PASSWORD:
@@ -696,18 +695,18 @@ def main() -> None:
 
     # Sidebar navigation
     with st.sidebar:
-        st.title("📊 Crowd vs. Model")
+        st.title("Crowd vs. Model")
         st.caption("Are prediction-market crowds smarter than a simple model?")
         st.divider()
         page_name = st.radio(
             "Navigate",
             list(PAGES.keys()),
-            format_func=lambda p: f"{PAGES[p][0]}  {p}",
+            format_func=lambda p: p,
         )
         st.divider()
 
         # Refresh button
-        if st.button("🔄 Reload data"):
+        if st.button("Reload data"):
             st.session_state.pop("app_data", None)
             load_data.clear()
             st.rerun()

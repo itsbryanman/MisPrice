@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  # ---- Flask REST API --------------------------------------------------
+  api:
+    build: .
+    command: ["python", "api/server.py"]
+    ports:
+      - "5000:5000"
+    env_file: .env
+    environment:
+      - FRED_API_KEY=${FRED_API_KEY}
+    volumes:
+      - data-vol:/app/data
+      - model-vol:/app/models
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  # ---- Streamlit Dashboard ---------------------------------------------
+  dashboard:
+    build: .
+    command: ["streamlit", "run", "app/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    env_file: .env
+    environment:
+      - FRED_API_KEY=${FRED_API_KEY}
+    volumes:
+      - data-vol:/app/data
+      - model-vol:/app/models
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ---- Pipeline runner (one-shot) --------------------------------------
+  pipeline:
+    build: .
+    command: ["python", "run_pipeline.py", "--fred-key", "${FRED_API_KEY}", "--benchmark"]
+    env_file: .env
+    environment:
+      - FRED_API_KEY=${FRED_API_KEY}
+    volumes:
+      - data-vol:/app/data
+      - model-vol:/app/models
+    profiles:
+      - pipeline
+
+volumes:
+  data-vol:
+  model-vol:
